@@ -11,19 +11,19 @@ root.withdraw()
 def pdf_concat():
     pdfs = []
 
-    file_path = filedialog.askdirectory()
-    destination = file_path + os.path.sep + 'merged'
+    filePath = filedialog.askdirectory()
+    destination = filePath + os.path.sep + 'merged'
 
-    # load all "".pdf" files from the selected directory
+    # load all ".pdf" files from the selected directory
     # and put them into a list
-    for file in os.listdir(file_path):
+    for file in os.listdir(filePath):
         if file.endswith(".pdf"):
-            pdfs.append(os.path.join(file_path, file))
+            pdfs.append(os.path.join(filePath, file))
 
     pdfs.sort()
     pdfLen = len(pdfs)
 
-    print(f'Found {pdfLen} ".pdf files" in {file_path}')
+    print(f'Found {pdfLen} ".pdf" files in {filePath}')
 
     # return if directory was empty
     if (pdfLen < 1):
@@ -42,7 +42,7 @@ def pdf_concat():
     length = int(len(pdfs) / 2) + 1
     x = 1
 
-    # chunk the list into chunks of 2 and merge them
+    # chunk the list into chunks of two and merge them
     for i in chunks(pdfs, 2):
         newFilename = f'{destination}{os.path.sep}{uuid.uuid4()}.pdf'
 
@@ -56,12 +56,13 @@ def pdf_concat():
 
         # give the user progress feedback
         progress = int((x / length) * 100)
-        print(f'{newFilename} ({x} von {length}) {progress}%')
+        print(f'{newFilename} ({x} of {length}) {progress}%')
 
         x += 1
 
     # prevent automatic closing of the process
     input()
+
 
 ### php: array_chunk
 def chunks(lst, n):
